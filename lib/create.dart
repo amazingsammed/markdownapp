@@ -15,22 +15,21 @@ class CreatePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            height: 20,
-            margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-            child: TextField(
-              decoration: const InputDecoration.collapsed(hintText: 'Enter File Name here'),
-              style: TextStyle(),
-              controller: con.fileName,
-            ),
-          ),
-          Divider(),
+          // Container(
+          //   height: 20,
+          //   margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+          //   child: TextField(
+          //     decoration: const InputDecoration.collapsed(hintText: 'Enter File Name here'),
+          //     style: TextStyle(),
+          //     controller: con.fileName,
+          //   ),
+          // ),
+          // Divider(),
           Expanded(
-
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
               child: TextField(
-                decoration: const InputDecoration.collapsed(hintText: 'Enter Text here'),
+                decoration: const InputDecoration.collapsed(hintText: 'Write Markdown here ....'),
                 maxLines: null,
                 expands: true,
                 style: TextStyle(

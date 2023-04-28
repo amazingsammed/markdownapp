@@ -16,10 +16,11 @@ class FileList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        if(con.markdownFiles.length == 0) Center(
+        if(con.markdownFiles.length == 0)
+          return Center(
           child: Text('No file available'),
         );
-        return ListView.builder(
+        return ListView.separated(
             itemCount: con.markdownFiles.length,
             itemBuilder: (BuildContext context, int index) {
               final file = con.markdownFiles[index];
@@ -73,7 +74,7 @@ class FileList extends StatelessWidget {
                       ));
                 },
               );
-            },
+            }, separatorBuilder: (BuildContext context, int index)=>const Divider(height: 2.0,),
           );
       }),
     );

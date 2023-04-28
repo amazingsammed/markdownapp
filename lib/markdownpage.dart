@@ -55,9 +55,11 @@ class MarkdownPage extends StatelessWidget {
         ],controller: con.tabcon2,),
       ),
       body: TabBarView(controller: con.tabcon2,children: [
-        Container(
-            margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 10),
-            child: Text(data)),
+        SingleChildScrollView(
+          child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 10),
+              child: Text(data)),
+        ),
         Markdown(data: data)
       ],
       )

@@ -1,11 +1,15 @@
 
 
+import 'dart:async';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:markdownapp/home.dart';
 import 'package:markdownapp/models/popmenu.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
@@ -23,12 +27,22 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
 
 
 
+
+
+
+
   void onInit(){
+
+    print('object 890');
     tabcon = TabController(length: 3, vsync: this);
     tabcon2 = TabController(length: 2, vsync: this);
+    firstFile();
     getMarkdownFiles();
     super.onInit();
   }
+
+
+
 
 
   void bold() => wrap(left: '**');
@@ -81,6 +95,41 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
     print(file.path);
     List<String> paths = [file.path];
     Share.shareFiles(paths, text: 'Check out this markdown file!');
+  }
+
+
+  firstFile() async {
+    Directory? documentsDirectory = await getExternalStorageDirectory();
+    String path = join(documentsDirectory?.path as String, "sample.md");
+    bool dbExists = await File(path).exists();
+    if (!dbExists) {
+      ByteData data = await rootBundle.load("assets/files/sample.md");
+      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File(path).writeAsBytes(bytes, flush: true);
+      getMarkdownFiles();
+    }
+  }
+
+  Future<void> openExternalFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['md', 'txt'],
+    );
+
+    if (result != null) {
+      File file = File(result.files.single.path.toString());
+      String abc = await file.readAsString();
+      if(mdText.text.isEmpty == false) saveCurrentData();
+      mdText.text = abc;
+      tabcon.index = 1;
+    } else {
+
+
+    }
+  }
+
+ void saveCurrentData(){
+     saveFile(filename: 'Unsaved file ${DateTime.now()}', content: mdText.text);
   }
 
 
