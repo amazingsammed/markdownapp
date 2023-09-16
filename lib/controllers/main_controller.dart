@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
+import 'package:markdownapp/mother.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -39,7 +40,7 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
   @override
   void onInit(){
 
-    tabcon = TabController(length: 3, vsync: this);
+    tabcon = TabController(length: 2, vsync: this);
     tabcon2 = TabController(length: 2, vsync: this);
     firstFile();
     getMarkdownFiles();
@@ -124,7 +125,7 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
   Future<void> openExternalFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['md', 'txt'],
+      allowedExtensions: ['md', 'txt','php','py','rtf','dart','yaml','html','css'],
     );
 
     if (result != null) {
@@ -132,7 +133,7 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
       String abc = await file.readAsString();
       if(mdText.text.isEmpty == false) saveCurrentData();
       mdText.text = abc;
-      tabcon.index = 1;
+      Get.to(()=>MotherPage());
     } else {
 
     }

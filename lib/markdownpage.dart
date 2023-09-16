@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:markdownapp/controllers/functions.dart';
 
 import 'controllers/main_controller.dart';
+import 'mother.dart';
 
 class MarkdownDetailPage extends StatelessWidget {
   final File file;
@@ -18,7 +20,16 @@ class MarkdownDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(file.path.split('/').last),
+        title: Text(file.path.split('/').last.replaceAll('.md', '')),
+        actions: [
+          IconButton(
+              onPressed: () {
+                provider.editFile(file);
+                Get.back(closeOverlays: true);
+                Get.to(()=>MotherPage());
+              },
+              icon: Icon(Icons.edit))
+        ],
       ),
       body: FutureBuilder<String>(
         future: file.readAsString(),
@@ -51,7 +62,6 @@ class MarkdownPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         bottom: TabBar(
-
             tabs: [
           Tab(text: 'Raw',),
           Tab(text: 'Preview',)

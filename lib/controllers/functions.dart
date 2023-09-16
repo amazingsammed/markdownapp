@@ -28,7 +28,7 @@ extension Functions on AppCon{
 
 
   void saveFile({ required String filename,required String content})async{
-    String fname = filename.trim().isEmpty ? "Untitled":filename.trim();
+    String fname = filename.trim().isEmpty ? "Untitled ${DateTime.now()}": filename.trim();
     final directory = await getExternalStorageDirectory();
     String filePath = "${directory?.path}/$fname.md";
 
@@ -42,7 +42,7 @@ extension Functions on AppCon{
     String content = await file.readAsString();
     fileName.text = filename;
     mdText.text = content;
-    tabcon.index = 1;
+    tabcon.index = 0;
   }
 
   Future<void> deleteFile(File file) async {
