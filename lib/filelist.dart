@@ -17,119 +17,140 @@ class FileList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        if(con.markdownFiles.length == 0)
+        if (con.markdownFiles.length == 0)
           return Center(
-          child: Text('No file available'),
-        );
-        return ListView.separated(
-            itemCount: con.markdownFiles.length,
-            itemBuilder: (BuildContext context, int index) {
-              final file = con.markdownFiles[index];
-              final fileName = file.path.split('/').last;
-              return Card(
-                margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.white54,
-                    child: Text('MD'),
-                  ),
-                  title: Text(fileName.replaceAll('.md', '')),
-                  onTap: () {
-                    Get.to(() => MarkdownDetailPage(file: file));
-                  },
-                  onLongPress: () {
-                    Get.defaultDialog(
-                        content: Column(
+            child: Text('No file available'),
+          );
+        return Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Text('Android/data/com.trustmedia.markdownapp/files'),
+            Divider(),
+            Expanded(
+              child: ListView.separated(
+                itemCount: con.markdownFiles.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final file = con.markdownFiles[index];
+                  final fileName = file.path.split('/').last;
+                  return Card(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.white54,
+                        child: Text('MD'),
+                      ),
+                      title: Text(fileName.replaceAll('.md', '')),
+                      onTap: () {
+                        Get.to(() => MarkdownDetailPage(file: file));
+                      },
+                      onLongPress: () {
+                        Get.defaultDialog(
+                            content: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-
                             SizedBox(
-                                width: Get.width/1.6,
+                                width: Get.width / 1.6,
                                 child: InkWell(
                                     onTap: () {
                                       con.editFile(file);
                                       Get.back(closeOverlays: true);
-                                      Get.to(()=>MotherPage());
+                                      Get.to(() => MotherPage());
                                     },
-                                    child: Card(child: ListTile(
+                                    child: Card(
+                                        child: ListTile(
                                       leading: Icon(Icons.edit),
-                                      title: Text('Edit'),)))),
+                                      title: Text('Edit'),
+                                    )))),
                             SizedBox(
-                                width: Get.width/1.6,
+                                width: Get.width / 1.6,
                                 child: InkWell(
                                     onTap: () {
                                       con.deleteFile(file);
                                       Get.back(closeOverlays: true);
                                     },
-                                    child: Card(child: ListTile(
+                                    child: Card(
+                                        child: ListTile(
                                       leading: Icon(Icons.delete),
-                                      title: Text('Delete'),)))),
+                                      title: Text('Delete'),
+                                    )))),
                             SizedBox(
-                                width: Get.width/1.6,
+                                width: Get.width / 1.6,
                                 child: InkWell(
                                     onTap: () {
                                       con.shareFile(file);
                                       Get.back(closeOverlays: true);
                                     },
-                                    child: Card(child: ListTile(
+                                    child: Card(
+                                        child: ListTile(
                                       leading: Icon(Icons.send_rounded),
-                                      title: Text('Share File'),)))),
+                                      title: Text('Share File'),
+                                    )))),
                           ],
                         ));
-                  },
-                  trailing: IconButton(onPressed: (){
-                    Get.bottomSheet(Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20))
+                      },
+                      trailing: IconButton(
+                        onPressed: () {
+                          Get.bottomSheet(Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20))),
+                            height: 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      con.editFile(file);
+
+                                      Get.back(closeOverlays: true);
+                                      Get.to(() => MotherPage());
+                                    },
+                                    child: ListTile(
+                                      leading: Icon(Icons.edit),
+                                      title: Text('Edit'),
+                                    )),
+                                SizedBox(
+                                    child: InkWell(
+                                        onTap: () {
+                                          con.deleteFile(file);
+                                          Get.back(closeOverlays: true);
+                                        },
+                                        child: ListTile(
+                                          leading: Icon(Icons.delete),
+                                          title: Text('Delete'),
+                                        ))),
+                                SizedBox(
+                                    child: InkWell(
+                                        onTap: () {
+                                          con.shareFile(file);
+                                          Get.back(closeOverlays: true);
+                                        },
+                                        child: ListTile(
+                                          leading: Icon(Icons.send),
+                                          title: Text('Share'),
+                                        ))),
+                              ],
+                            ),
+                          ));
+                        },
+                        icon: Icon(Icons.more_vert),
                       ),
-                      height: 200,
-                 
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                              onTap: () {
-
-                                con.editFile(file);
-
-                                Get.back(closeOverlays: true);
-                                Get.to(()=>MotherPage());
-                              },
-                              child: ListTile(
-                                leading: Icon(Icons.edit),
-                                title: Text('Edit'),)),
-                          SizedBox(
-
-                              child: InkWell(
-                                  onTap: () {
-                                    con.deleteFile(file);
-                                    Get.back(closeOverlays: true);
-                                  },
-                                  child: ListTile(
-                                    leading: Icon(Icons.delete),
-                                    title: Text('Delete'),))),
-                          SizedBox(
-
-                              child: InkWell(
-                                  onTap: () {
-                                    con.shareFile(file);
-                                    Get.back(closeOverlays: true);
-                                  },
-                                  child: ListTile(
-                                    leading: Icon(Icons.send),
-                                    title: Text('Share'),))),
-                        ],
-                      ),
-                    ));
-                  },icon: Icon(Icons.more_vert),),
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(
+                  height: 2.0,
                 ),
-              );
-            }, separatorBuilder: (BuildContext context, int index)=>const Divider(height: 2.0,),
-          );
+              ),
+            ),
+          ],
+        );
       }),
     );
   }
 }
-
-

@@ -205,14 +205,7 @@ class Home extends StatelessWidget {
         // ),
       ),
       body: FileList(),
-      // body: TabBarView(
-      //   controller: con.tabcon,
-      //   children: [
-      //     FileList(),
-      //     CreatePage(),
-      //     PreviewPage()
-      //   ],
-      // ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
 

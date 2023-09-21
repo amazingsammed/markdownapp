@@ -37,6 +37,8 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
 
 
 
+
+
   @override
   void onInit(){
 
@@ -77,16 +79,25 @@ class AppCon extends GetxController with GetTickerProviderStateMixin{
 
   Future<void> getMarkdownFiles() async {
     final status = await Permission.storage.request();
-    final directory = await getExternalStorageDirectory();
-    print(status);
+   final directory = await getExternalStorageDirectory();
+    //final directory = Directory('/storage/emulated/0');
+    print(directory);
 
 
    //  final directory = Directory('/storage/self/primary/');
-     _searchForMarkdownFiles(directory!);
+      _searchForMarkdownFiles(directory!);
   }
 
-  void _searchForMarkdownFiles(Directory dir) {
-    final files = dir.listSync();
+  void _searchForMarkdownFiles(Directory dir)async {
+    List<FileSystemEntity> files=[];
+    // final entities = await dir.list().toList();
+
+
+
+     files.addAll(dir.listSync());
+    //print(entities);
+
+
     _markdownFiles.clear();
     for (final file in files) {
       if (file is Directory) {

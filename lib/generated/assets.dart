@@ -3,6 +3,8 @@ class Assets {
   Assets._();
 
   static const String filesSample = 'assets/files/sample.md';
+  static const String imagesFile = 'assets/images/file.png';
   static const String imagesMarkdownAppIcon = 'assets/images/markdown_app_icon.png';
+  static const String imagesNewlogo = 'assets/images/newlogo.png';
 
 }

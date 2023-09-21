@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
 
 
    startTime() async {
-     var duration = const Duration(seconds: 2);
+     var duration = const Duration(seconds: 3);
      return Timer(duration, navigationPage);
    }
    void navigationPage() {
@@ -39,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(13),
                         image: DecorationImage(
                             image: AssetImage(
-                                'assets/images/markdown_app_icon.png')
+                                'assets/images/newlogo.png')
                         )
                     ),
                   ),
@@ -47,7 +47,12 @@ class SplashScreen extends StatelessWidget {
                 SizedBox(height: 10,),
                 Text('MarkDown Cheif Editor',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                SizedBox(height: 10,),
+                Text('New User Interface'),
+                Text('Reported Bugs Fixed'),
                 Spacer(),
+                CircularProgressIndicator(),
+                SizedBox(height: 10,),
                 Text('Developed by Sammed'),
                 SizedBox(height: 25,)
               ],
